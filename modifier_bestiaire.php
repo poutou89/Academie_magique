@@ -2,7 +2,7 @@
 <?php
 include "init.php";
 
-if (!isset($_SESSION['id_user']) || $_SESSION['id_user'] != 1) {
+if (!isset($_SESSION['id_user']) && ($_SESSION['id_user'] !== 1 || $_SESSION['id_user'] !== $data['createur'])) {
     header('Location: index.php');
     exit;
 }
@@ -35,10 +35,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
-
-<form method="post">
-    <input type="text" name="nom" value="<?= htmlspecialchars($monstre['nom']) ?>" required>
-    <textarea name="description"><?= htmlspecialchars($monstre['description']) ?></textarea>
-    <input type="text" name="type" value="<?= htmlspecialchars($monstre['type']) ?>">
-    <button type="submit">Modifier le monstre</button>
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un sort</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<?php include "header.php"; ?>
+<main>
+    <div class="container">
+        <form method="post">
+            <input type="text" name="nom" value="<?= htmlspecialchars($monstre['nom']) ?>" required>
+            <textarea name="description"><?= htmlspecialchars($monstre['description']) ?></textarea>
+            <input type="text" name="type" value="<?= htmlspecialchars($monstre['type']) ?>">
+            <button type="submit">Modifier le monstre</button>
+        </form>
+    </div>
+</main>
+</body>

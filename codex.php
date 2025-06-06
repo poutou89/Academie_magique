@@ -3,10 +3,11 @@
 
 <?php
 $requestCodex = $bdd->prepare('
-    SELECT codex.id_codex, codex.nom, codex.element, element.element AS nom_element, images.nom_fichier
+    SELECT codex.id_codex, codex.nom, codex.element, codex.id_createur, user.element AS user_element, element.element AS nom_element, images.nom_fichier
     FROM codex
     INNER JOIN element ON codex.element = element.id_element
     LEFT JOIN images ON codex.id_codex = images.id_codex
+    LEFT JOIN user ON codex.element = user.element
 ');
 $requestCodex->execute();
 ?>
@@ -42,12 +43,11 @@ $requestCodex->execute();
 
                 <?php if (
                     isset($_SESSION['id_user']) &&
-                    ($_SESSION['id_user'] == 1 || $_SESSION['id_user'] == $data['createur'])
+                    ($_SESSION['id_user'] == 1 || $data['element'] == $_SESSION['element'])
                 ) {
                     echo '<a href="modifier_codex.php?id=' . $data['id_codex'] . '">Modifier</a> | ';
                     echo '<a href="supprimer_codex.php?id=' . $data['id_codex'] . '" onclick="return confirm(\'Êtes-vous sûr ?\')">Supprimer</a>';
                 }
-
                 ?></div>
             <?php endwhile; ?>
         </div>

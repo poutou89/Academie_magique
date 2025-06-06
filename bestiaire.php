@@ -3,9 +3,10 @@
 
 <?php
 $requestBestiaire = $bdd->prepare('
-    SELECT bestiaire.id_bestiaire, bestiaire.nom, bestiaire.description, images.nom_fichier
+    SELECT bestiaire.id_bestiaire, bestiaire.nom, bestiaire.description, bestiaire.createur, images.nom_fichier
     FROM bestiaire
     LEFT JOIN images ON bestiaire.id_bestiaire = images.id_bestiaire
+    LEFT JOIN user ON bestiaire.createur = user.id_user
 ');
 $requestBestiaire->execute();
 ?>
@@ -37,7 +38,8 @@ $requestBestiaire->execute();
             <p><?= html_entity_decode($data['description']) ?></p>
 
 
-            <?php if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == 1): ?>
+            <?php if (isset($_SESSION['id_user']) &&
+                    ($_SESSION['id_user'] == 1 || $_SESSION['id_user'] == $data['createur'])): ?>
                 <p>
                     <a href="modifier_bestiaire.php?id=<?= $data['id_bestiaire'] ?>">Modifier</a> |
                     <a href="supprimer_bestiaire.php?id=<?= $data['id_bestiaire'] ?>" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>

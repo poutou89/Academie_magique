@@ -3,7 +3,7 @@
 include "init.php";
 
 // Accès uniquement pour l'admin
-if (!isset($_SESSION['id_user']) || $_SESSION['id_user'] != 1) {
+if (!isset($_SESSION['id_user']) && ($_SESSION['id_user'] !== 1 || $_SESSION['id_user'] !== $data['createur'])) {
     header('Location: index.php');
     exit;
 }

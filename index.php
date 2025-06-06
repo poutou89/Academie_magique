@@ -46,12 +46,12 @@
             </form>
                 <?php endif; ?>
              <?php if (isset($_SESSION['id_user'])): ?>
-               <h2> Coucou <? $_SESSION['nom']?> </h2>
+               <h2> Bien le bonjour, <?= $_SESSION['nom']?> </h2>
                <?php endif; ?>
                 
                 
             <?php if(isset($_SESSION['nom'])): ?>
-                <a href="unlog.php">Déconnexion</a>
+                <a class="btn-add" href="unlog.php">Déconnexion</a>
                 <?php endif; ?>
         </div>
     </main>

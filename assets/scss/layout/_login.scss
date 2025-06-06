@@ -6,5 +6,17 @@ main {
         a {
             text-align: center;
         }
+        form {
+            margin-top: 1em;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            input {
+                padding: 1em 1.2em;
+            }
+        }
+        h2 {
+            text-align: center;
+        }
     }
 }
