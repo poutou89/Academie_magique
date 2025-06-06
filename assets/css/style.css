@@ -1,0 +1,193 @@
+body header {
+  background-color: rgb(95, 72, 43);
+  box-shadow: 1px 1px 10px black;
+}
+body header .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+body header .container h1 a {
+  text-transform: uppercase;
+  color: white;
+}
+body header .container h1 a:hover {
+  color: rgb(145, 145, 145);
+  transition: all 0.3s ease-out;
+}
+body header .container nav ul {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+body header .container nav ul li {
+  width: 35vh;
+  list-style: none;
+}
+body header .container nav ul li a {
+  text-decoration: none;
+  color: white;
+}
+body header .container nav ul li a:hover {
+  border-bottom: 1px solid rgb(145, 145, 145);
+  color: rgb(145, 145, 145);
+  transition: all 0.3s ease-out;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../img/OIP.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+main .container {
+  padding-top: 2em;
+}
+
+main .container h3 {
+  text-align: center;
+}
+main #list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vh;
+}
+main #list .container {
+  border: 2px solid black;
+  width: 20%;
+  box-shadow: 2px 2px 2px rgb(102, 102, 102);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(206, 164, 97);
+  border-radius: 12px;
+  justify-content: space-between;
+}
+main #list .container h2 {
+  text-transform: uppercase;
+  text-align: center;
+}
+main #list .container p {
+  text-align: center;
+}
+main #list .container a {
+  color: black;
+}
+main #list .container a:hover {
+  color: grey;
+  transition: all 0.3s ease-out;
+}
+
+main #sort {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vh;
+}
+main #sort .container {
+  border: 2px solid black;
+  width: 20%;
+  box-shadow: 2px 2px 2px rgb(102, 102, 102);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(206, 164, 97);
+  border-radius: 12px;
+  justify-content: space-between;
+}
+main #sort .container h2 {
+  text-transform: uppercase;
+  text-align: center;
+}
+main #sort .container p {
+  text-align: center;
+}
+main #sort .container a {
+  color: black;
+}
+main #sort .container a:hover {
+  color: grey;
+  transition: all 0.3s ease-out;
+}
+main #sort .container a:last-of-type {
+  padding-bottom: 1em;
+}
+
+main #user {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2vh;
+}
+main #user .container {
+  border: 2px solid black;
+  width: 40%;
+  box-shadow: 2px 2px 2px rgb(102, 102, 102);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(206, 164, 97);
+  border-radius: 12px;
+  justify-content: space-between;
+}
+main #user .container h2 {
+  text-transform: uppercase;
+  text-align: center;
+}
+main #user .container p {
+  text-align: center;
+}
+main #user .container a {
+  color: black;
+}
+main #user .container a:hover {
+  color: grey;
+  transition: all 0.3s ease-out;
+}
+main #user .container a:last-of-type {
+  padding-bottom: 1em;
+}
+
+main #login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+main #login a {
+  text-align: center;
+}
+
+.btn-add {
+  padding: 1.5em 2em;
+  background-color: rgb(145, 145, 145);
+  border-radius: 12px;
+  box-shadow: 2px 2px 2px rgb(102, 102, 102);
+  border: 1px solid white;
+  color: white;
+}
+
+.btn-add:hover {
+  color: rgb(145, 145, 145);
+  background-color: white;
+  border: 1px solid rgb(145, 145, 145);
+  transition: all 0.3s ease-out;
+}
+
+/*# sourceMappingURL=style.css.map */

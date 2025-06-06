@@ -1,0 +1,14 @@
+{
+  "name": "academie_magique",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass -w assets/scss:assets/css"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "sass": "^1.89.1"
+  }
+}

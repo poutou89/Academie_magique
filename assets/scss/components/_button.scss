@@ -1,0 +1,14 @@
+.btn-add {
+                padding:  1.5em 2em;
+                background-color: rgb(145, 145, 145);
+                border-radius: 12px;
+                box-shadow: 2px 2px 2px rgb(102, 102, 102);
+                border: 1px solid white;
+                color: white;
+            }
+            .btn-add:hover {
+                color: rgb(145, 145, 145);
+                background-color: white;
+                border: 1px solid rgb(145, 145, 145);
+                transition: all 0.3s ease-out;
+            }

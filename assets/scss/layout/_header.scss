@@ -1,0 +1,41 @@
+body {
+    header {
+        background-color: rgb(95, 72, 43);
+        box-shadow: 1px 1px 10px black;
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            h1 {
+                a{
+                    text-transform: uppercase;
+                    color: white;
+                }
+                a:hover {
+                    color: rgb(145, 145, 145);
+                    transition: all 0.3s ease-out;
+                }
+            }
+            nav {
+                ul {
+                    display: flex;
+                    justify-content: space-around;
+                    width: 100%;
+                    li {
+                        width: 35vh;
+                        list-style: none;
+                        a {
+                            text-decoration: none;
+                            color: white;
+                        }
+                        a:hover {
+                            border-bottom: 1px solid rgb(145, 145, 145);
+                            color: rgb(145, 145, 145);
+                            transition: all 0.3s ease-out;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
