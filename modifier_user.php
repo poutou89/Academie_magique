@@ -1,11 +1,9 @@
-<?php session_start(); ?>
-<?php include "init.php"; ?>
-
 <?php
-$elements = $bdd->query("SELECT * FROM element")->fetchAll();
+session_start();
+include "init.php";
 
 if (!isset($_SESSION['id_user']) || $_SESSION['id_user'] != 1) {
-    header('Location: index.php');
+    header("Location: index.php");
     exit;
 }
 
@@ -14,31 +12,36 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-$id = intval($_GET['id']);
+$id_user = intval($_GET['id']);
 
-
-$requestUser = $bdd->prepare("SELECT * FROM user WHERE id_user = ?");
-$requestUser->execute([$id]);
-$user = $requestUser->fetch();
+$stmtUser = $bdd->prepare("SELECT * FROM user WHERE id_user = ?");
+$stmtUser->execute([$id_user]);
+$user = $stmtUser->fetch();
 
 if (!$user) {
     echo "Utilisateur introuvable.";
     exit;
 }
 
+$elements = $bdd->query("SELECT * FROM element")->fetchAll(PDO::FETCH_ASSOC);
+
+$stmtUserElements = $bdd->prepare("SELECT id_element FROM user_element WHERE id_user = ?");
+$stmtUserElements->execute([$id_user]);
+$userElementIds = $stmtUserElements->fetchAll(PDO::FETCH_COLUMN);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = htmlspecialchars($_POST['nom']);
-    $element = intval($_POST['element']);
-    $role = htmlspecialchars($_POST['role']);
+    $nom = $_POST['nom'];
+    $role = $_POST['role'];
+    $selectedElements = isset($_POST['elements']) ? $_POST['elements'] : [];
 
-    if (!empty($_POST['mdp'])) {
-        $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
-        $update = $bdd->prepare("UPDATE user SET nom = ?, element = ?, role = ?, mdp = ? WHERE id_user = ?");
-        $update->execute([$nom, $element, $role, $mdp, $id]);
-    } else {
-        $update = $bdd->prepare("UPDATE user SET nom = ?, element = ?, role = ? WHERE id_user = ?");
-        $update->execute([$nom, $element, $role, $id]);
+    $stmtUpdate = $bdd->prepare("UPDATE user SET nom = ?, role = ? WHERE id_user = ?");
+    $stmtUpdate->execute([$nom, $role, $id_user]);
+
+    $bdd->prepare("DELETE FROM user_element WHERE id_user = ?")->execute([$id_user]);
+
+    $stmtInsert = $bdd->prepare("INSERT INTO user_element (id_user, id_element) VALUES (?, ?)");
+    foreach ($selectedElements as $id_element) {
+        $stmtInsert->execute([$id_user, $id_element]);
     }
 
     header("Location: user.php");
@@ -54,25 +57,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <?php include "header.php"; ?>
-    <main>
-        <div class="container">
-            <h2>Modifier l'utilisateur</h2>
-            <form method="post">
-                <input type="text" name="nom" value="<?= htmlspecialchars($user['nom']) ?>" required>
-                <input type="text" name="role" value="<?= htmlspecialchars($user['role']) ?>">
-                <input type="password" name="mdp" placeholder="Laisser vide pour ne pas changer">
-                <label for="element">Élément :</label>
-                <select name="element" required>
-                    <?php foreach ($elements as $el): ?>
-                    <option value="<?= $el['id_element'] ?>" <?= $user['element'] == $el['id_element'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($el['element']) ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-                <button type="submit">Modifier</button>
-            </form>
-        </div>
-    </main>
+<?php include "header.php"; ?>
+<main>
+    <div class="container">
+        <h1>Modifier l'utilisateur</h1>
+        <form method="post">
+            <label>Nom :</label>
+            <input type="text" name="nom" value="<?= htmlspecialchars($user['nom']) ?>" required>
+
+            <label>Rôle :</label>
+            <input type="text" name="role" value="<?= htmlspecialchars($user['role']) ?>">
+
+            <label>Éléments :</label><br>
+            <?php foreach ($elements as $element): ?>
+                <label>
+                    <input type="checkbox" name="elements[]" value="<?= $element['id_element'] ?>"
+                        <?= in_array($element['id_element'], $userElementIds) ? 'checked' : '' ?>>
+                    <?= htmlspecialchars($element['element']) ?>
+                </label><br>
+            <?php endforeach; ?>
+
+            <button type="submit">Modifier</button>
+        </form>
+    </div>
+</main>
 </body>
 </html>
