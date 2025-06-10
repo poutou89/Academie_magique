@@ -24,6 +24,14 @@ if (!empty($_POST['nom']) && !empty($_POST['mdp'])) {
     }
 }
 
+$userElements = [];
+
+if (!empty($_SESSION['elements'])) {
+    $placeholders = implode(',', array_fill(0, count($_SESSION['elements']), '?'));
+    $stmt = $bdd->prepare("SELECT element FROM element WHERE id_element IN ($placeholders)");
+    $stmt->execute($_SESSION['elements']);
+    $userElements = $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
 
 if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == 1) {
     if (isset($_POST['add_element'])) {
@@ -47,6 +55,7 @@ if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == 1) {
 
     $elements = $bdd->query("SELECT id_element, element FROM element")->fetchAll(PDO::FETCH_ASSOC);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -70,10 +79,20 @@ if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == 1) {
         <?php endif; ?>
 
         <?php if (isset($_SESSION['id_user'])): ?>
-            <h2>Bien le bonjour, <?= htmlspecialchars($_SESSION['nom']) ?></h2>
-            <a class="btn-add" href="unlog.php">Déconnexion</a>
+            <h2>Bien le bonjour, <br> <?= htmlspecialchars($_SESSION['nom']) ?></h2>
         <?php endif; ?>
 
+        <?php if (isset($_SESSION['id_user']) && $_SESSION['id_user'] != 1): ?>
+            <h2>Vos éléments :</h2>
+            <h2>
+            <?= !empty($userElements)
+            ? htmlspecialchars(implode(', ', $userElements))
+            : 'Aucun élément associé.' ?>
+            </h2>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['id_user'])): ?>
+            <a class="btn-add" href="unlog.php">Déconnexion</a>
+        <?php endif; ?>
         <?php if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == 1): ?>
             <h2>Option Administrateur : Gestion des éléments</h2>
 
@@ -94,5 +113,6 @@ if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == 1) {
         <?php endif; ?>
     </div>
 </main>
+
 </body>
 </html>

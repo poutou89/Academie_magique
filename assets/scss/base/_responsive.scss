@@ -1,0 +1,118 @@
+@media screen and (max-width: 1440px) {
+    h2 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    body {
+        #list {
+            .container {
+                width: 45%;
+            }
+        }
+
+        #sort {
+            .container {
+                width: 45%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        header {
+            .container {
+      max-width: 768px;
+      width: 95%;
+      justify-content: space-evenly;
+  
+      ul {
+        display: none;
+
+      }
+  
+      .menu {
+        display: block !important;
+      }
+      
+      button#burger {
+        display: block !important;
+        background: transparent;
+        border: none;
+        z-index: 1000;
+      }
+      
+      button#burger img {
+        width: 24px;
+        height: 24px;
+      }
+      #navLinks {
+        display: none;
+        flex-direction: column;
+        background-color: rgb(95, 72, 43);
+        position: absolute;
+        top: 65px;
+        right: 14%;
+        padding: 1rem;
+        border-radius: 8px;
+        z-index: 1000;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+         
+        &.active {
+            display: flex;
+            gap: 2vh;
+            width: 20vh;
+            box-shadow: 4px 6px 6px black;
+        }
+      }
+    }
+  
+        }
+    }
+}
+body {
+        main {
+            #user {
+                width: 100%;
+                }
+            }
+        }
+    
+
+
+@media screen and (max-width: 600px) {
+    body {
+        main {
+            #sort.container {
+                width: 100%;
+            }
+            #user {
+                width: 95%;
+                .container {
+                    width: 100%;
+                }
+            }
+            #list {
+                width: 95%;
+                .container {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        main {
+            #sort {
+                .container {
+                width: 100%;
+                }
+            }
+        }
+    }
+}
